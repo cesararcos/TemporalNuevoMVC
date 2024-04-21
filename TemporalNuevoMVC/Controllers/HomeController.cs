@@ -35,23 +35,6 @@ namespace TemporalNuevoMVC.Controllers
                 Details = x.Details ?? string.Empty
             }).ToList();
 
-            
-            //List<ProductsViewModel> products = new()
-            //{
-            //    new ProductsViewModel {
-            //        Id = 1,
-            //        Image = "Maletin8.png",
-            //        Name = "MALETIN",
-            //        State = "Nuevo",
-            //        Price = 45000,
-            //        ShippingCost = 10000,
-            //        Sold = 25,
-            //        Details = "Vendedor excelente"
-            //    },
-            //    new ProductsViewModel {Id = 2, Name = "b"},
-            //    new ProductsViewModel {Id = 3, Name = "c"}
-            //};
-
             if (!string.IsNullOrEmpty(name))
             {
                 name = name.Trim().Replace(" ", string.Empty).ToUpper();
@@ -63,7 +46,6 @@ namespace TemporalNuevoMVC.Controllers
 
         public IActionResult Cart(int id)
         {
-            //IEnumerable<Products> data = Context.Products.Include(include => include.ImagesProducts).Where(x => x.Id.Equals(id));
             IEnumerable<ImagesProducts> data = Context.ImagesProducts.Include(include => include.ProductsNavigation).Where(x => x.Products.Equals(id));
 
             List<ProductsViewModel> products = data.Select(x => new ProductsViewModel()
@@ -77,37 +59,6 @@ namespace TemporalNuevoMVC.Controllers
                 Sold = x.ProductsNavigation.Sold ?? 0,
                 Details = x.ProductsNavigation.Details ?? string.Empty,
             }).ToList();
-
-            //List<ProductsViewModel> products = data.Select(x => new ProductsViewModel()
-            //{
-            //    Id = x.Id,
-            //    Name = x.Name ?? string.Empty,
-            //    Image = x.Image ?? string.Empty,
-            //    State = x.State ?? string.Empty,
-            //    Price = x.Price ?? 0,
-            //    ShippingCost = x.ShippingCost ?? 0,
-            //    Sold = x.Sold ?? 0,
-            //    Details = x.Details ?? string.Empty,
-            //    ImagesCollection = x.ImagesProducts.Select(x => x.Path)
-            //}).ToList();
-
-            //List<ProductsViewModel> products = new()
-            //{
-            //    new ProductsViewModel {
-            //        Id = 1,
-            //        Image = "Maletin8.png",
-            //        Name = "MALETIN",
-            //        State = "Nuevo",
-            //        Price = 45000,
-            //        ShippingCost = 10000,
-            //        Sold = 25,
-            //        Details = "Vendedor excelente"
-            //    },
-            //    new ProductsViewModel {Id = 2, Name = "b"},
-            //    new ProductsViewModel {Id = 3, Name = "c"}
-            //};
-
-            //products = products.Where(x => x.Id.Equals(id)).ToList();
 
             return View(products);
         }
