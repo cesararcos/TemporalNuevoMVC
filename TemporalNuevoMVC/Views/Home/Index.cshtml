@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TemporalNuevoMVC.Models.ProductsViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    #buscar {
+        display: block;
+        width: 100%;
+    }
+</style>
+
+<form asp-controller="Home" asp-action="Index">
+    <div class="row">
+        <div id="buscar" class="col-sm-12">
+            <input type="text" name="name" placeholder="Buscar aquí" />
+            <button>Buscar</button>
+        </div>
+    </div>
+    <br />
+</form>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-sm-4">
+            <div>
+                <img src="~/Image/@item.Image" height="250" width="250" alt="Image">
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="row">
+                <a href="@Url.Action("Cart", "Home", new { id = item.Id })">@item.Name</a>
+                <p>@item.State</p>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <p>COP$ @item.Price</p>
+                    </div>
+                    <p>Compralo ahora</p>
+                    <div class="row">
+                        <p>Costo envío @item.ShippingCost</p>
+                    </div>
+                    <div class="row">
+                        <p>Vendidos @item.Sold</p>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <p>@item.Details</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+}
