@@ -8,16 +8,10 @@ using TemporalNuevoMVC.Models;
 
 namespace TemporalNuevoMVC.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(ILogger<HomeController> logger, DataContext context) : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly DataContext Context;
-
-        public HomeController(ILogger<HomeController> logger, DataContext context)
-        {
-            _logger = logger;
-            Context = context;
-        }
+        private readonly ILogger<HomeController> _logger = logger;
+        private readonly DataContext Context = context;
 
         public IActionResult Index(string? name)
         {
